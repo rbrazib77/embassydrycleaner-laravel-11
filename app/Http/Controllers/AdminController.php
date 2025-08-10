@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewAdminMail;
 
 class AdminController extends Controller
 {
@@ -88,6 +92,62 @@ class AdminController extends Controller
          );
           return redirect()->route('login')->with($notification);
     }
+
+    public function UserList(){
+        $user=User::all();
+        return view('admin.user.index',compact('user'));
+    }
+
+    public function NewUser(){
+        return view('admin.user.new_user_create');
+    }
+
+    
+    public function NewUserCreate(Request $request){
+         $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+        ]);
+        $random_password=Str::upper(Str::random(6));
+        User::insert([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'email_verified_at'=>Carbon::now(),
+            'password'=>bcrypt($random_password),
+             'created_at'=>Carbon::now(),
+            'role'=>"admin",
+        ]);
+        // NewAdminMail
+         Mail::to($request->email)->send(new NewAdminMail(  auth()->user()->name,$request->email,$random_password));
+         $notification=array(
+            'message'=>'New user create successfully!',
+            'alert-type'=>'success'
+         );
+          return back()->with($notification);
+    }
+
+    public function destroy($id){
+        if (auth()->id() == $id) {
+            $notification = [
+                'message' => 'You cannot delete your own account while logged in!',
+                'alert-type' => 'error'
+            ];
+            return back()->with($notification);
+        }
+
+        $delete = User::findOrFail($id);
+        $delete->delete();
+
+        $notification = [
+            'message' => 'User deleted successfully!',
+            'alert-type' => 'warning'
+        ];
+        return back()->with($notification);
+    }
+
+
+
+
 
    
 }

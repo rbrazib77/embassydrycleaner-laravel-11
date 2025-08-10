@@ -33,17 +33,23 @@
                      </a>
                  </li>
                  <li class="menu-title">Pages</li>
+                  <li>
+                     <a href="{{route('admin.user.list')}}" class="tp-link">
+                         <i data-feather="users"></i>
+                         <span> User List </span>
+                     </a>
+                 </li>
 
                  <li>
                      <a href="#sidebarAuth" data-bs-toggle="collapse">
                          <i data-feather="users"></i>
-                         <span> Authentication </span>
+                         <span> Home Page </span>
                          <span class="menu-arrow"></span>
                      </a>
                      <div class="collapse" id="sidebarAuth">
                          <ul class="nav-second-level">
                              <li>
-                                 <a href="auth-login.html" class="tp-link">Log In</a>
+                                 <a href="{{route('admin.banner.index')}}" class="tp-link">Banner Section</a>
                              </li>
                              <li>
                                  <a href="auth-register.html" class="tp-link">Register</a>
