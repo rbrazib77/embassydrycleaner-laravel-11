@@ -5,7 +5,7 @@
          <div id="sidebar-menu">
 
              <div class="logo-box">
-                 <a href="index.html" class="logo logo-light">
+                 <a href="{{ route('dashboard') }}" class="logo logo-light">
                      <span class="logo-sm">
                          <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="" height="22">
                      </span>
@@ -13,7 +13,7 @@
                          <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="" height="24">
                      </span>
                  </a>
-                 <a href="index.html" class="logo logo-dark">
+                 <a href="{{ route('dashboard') }}" class="logo logo-dark">
                      <span class="logo-sm">
                          <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="" height="22">
                      </span>
@@ -27,14 +27,14 @@
 
                  <li class="menu-title">Menu</li>
                  <li>
-                     <a href="{{route('dashboard')}}" class="tp-link">
+                     <a href="{{ route('dashboard') }}" class="tp-link">
                          <i data-feather="home"></i>
                          <span> Dashboard </span>
                      </a>
                  </li>
                  <li class="menu-title">Pages</li>
-                  <li>
-                     <a href="{{route('admin.user.list')}}" class="tp-link">
+                 <li>
+                     <a href="{{ route('admin.user.list') }}" class="tp-link">
                          <i data-feather="users"></i>
                          <span> User List </span>
                      </a>
@@ -49,10 +49,10 @@
                      <div class="collapse" id="sidebarAuth">
                          <ul class="nav-second-level">
                              <li>
-                                 <a href="{{route('admin.banner.index')}}" class="tp-link">Banner Section</a>
+                                 <a href="{{ route('admin.banner.index') }}" class="tp-link">Banner Section</a>
                              </li>
                              <li>
-                                 <a href="auth-register.html" class="tp-link">Register</a>
+                                 <a href="{{route('admin.service.index')}}" class="tp-link">Our Service Section</a>
                              </li>
                              <li>
                                  <a href="auth-recoverpw.html" class="tp-link">Recover Password</a>
@@ -72,6 +72,32 @@
                          </ul>
                      </div>
                  </li>
+
+                  <li>
+                     <a href="#sidebarAdvancedUI" data-bs-toggle="collapse">
+                         <i data-feather="cpu"></i>
+                         <span> Setting </span>
+                         <span class="menu-arrow"></span>
+                     </a>
+                     <div class="collapse" id="sidebarAdvancedUI">
+                         <ul class="nav-second-level">
+                             <li>
+                                 <a href="{{route('admin.website.index')}}" class="tp-link">Website Setting</a>
+                             </li>
+                             <li>
+                                 <a href="extended-notifications.html" class="tp-link">Socile Media</a>
+                             </li>
+                             {{-- <li>
+                                 <a href="extended-offcanvas.html" class="tp-link">Offcanvas</a>
+                             </li>
+                             <li>
+                                 <a href="extended-range-slider.html" class="tp-link">Range Slider</a>
+                             </li> --}}
+                         </ul>
+                     </div>
+                 </li>
+
+
                  <li>
                      <a href="calendar.html" class="tp-link">
                          <i data-feather="calendar"></i>
@@ -97,7 +123,7 @@
                              </li>
                              <li>
                                  <a href="ui-badges.html" class="tp-link">Badges</a>
-                             </li> 
+                             </li>
                          </ul>
                      </div>
                  </li>

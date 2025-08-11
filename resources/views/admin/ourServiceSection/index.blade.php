@@ -1,5 +1,5 @@
 @extends('admin.layouts.bashboard_master')
-@section('title', 'Banner Item List')
+@section('title', 'Our Service List')
 @section('admin')
     <div class="content">
 
@@ -8,12 +8,12 @@
 
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="fs-18 fw-semibold m-0">Banner Item List</h4>
+                    <h4 class="fs-18 fw-semibold m-0">Our Service List</h4>
                 </div>
 
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
-                        <a href="{{ route('admin.banner.create') }}" class="btn btn-success">New Banner Create</a>
+                        <a href="{{ route('admin.service.create') }}" class="btn btn-success">New Service Create</a>
                     </ol>
                 </div>
             </div>
@@ -27,11 +27,8 @@
                                 <thead>
                                     <tr>
                                         <th>SI</th>
-                                        <th>Image</th>
+                                        <th>Icon</th>
                                         <th>Title</th>
-                                        <th>SubTitle</th>
-                                        <th>Button Text</th>
-                                        {{-- <th>Button Url</th> --}}
                                         <th>status</th>
                                         <th>Order</th>
                                         <th>Date</th>
@@ -40,22 +37,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($banner as $key => $item)
+                                    @foreach ($service as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>
-                                                <img src="{{ !empty($item->image) ? url('upload/banners/' . $item->image) : url('upload/no_image.jpg') }}"
-                                                    alt="image profile"
-                                                    style="width:80px; height:40px; object-fit:cover; border-radius:3px;">
+                                                <img src="{{ !empty($item->icon) ? url('upload/services/' . $item->icon) : url('upload/no_image.jpg') }}"
+                                                    alt="icon service" style="width:80px; height:40px;  border-radius:3px;">
                                             </td>
                                             <td>{{ $item->title }}</td>
-                                            <td>{{ $item->subtitle }}</td>
-                                            <td>{{ $item->button_text }}</td>
-                                            {{-- <td>{{ $item->button_url }}</td> --}}
                                             <td>
                                                 <a href="javascript:void(0);"
                                                     class="toggle-status  {{ $item->status ? 'badge text-bg-primary' : 'badge text-bg-secondary' }}"
-                                                    data-url="{{ route('admin.banner.active.deactive', $item->id) }}"
+                                                    data-url="{{ route('admin.service.active.deactive', $item->id) }}"
                                                     data-status="{{ $item->status ? 'deactivate' : 'activate' }}">
                                                     {{ $item->status ? 'Active' : 'Inactive' }}
                                                 </a>
@@ -63,26 +56,29 @@
                                             <td>{{ $item->order }}</td>
                                             <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                             <td>
+                                                <a href="{{ route('admin.service.details', $item->id) }}"
+                                                    class="btn btn-primary">View</a>
                                                 <a href="javascript:void(0);" class="btn btn-danger delete-btn"
-                                                    data-url="{{ route('admin.banner.destroy', $item->id) }}">Delete</a>
+                                                    data-url="{{ route('admin.service.destroy', $item->id) }}">Delete</a>
                                                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                    data-bs-target="#editBannerModal{{ $item->id }}">
+                                                    data-bs-target="#editServiceModal{{ $item->id }}">
                                                     Edit
                                                 </button>
+
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="editBannerModal{{ $item->id }}"
+                                                <div class="modal fade" id="editServiceModal{{ $item->id }}"
                                                     tabindex="-1"
-                                                    aria-labelledby="editBannerModalLabel{{ $item->id }}"
+                                                    aria-labelledby="editServiceModalLabel{{ $item->id }}"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog modal-xl">
                                                         <div class="modal-content">
-                                                            <form action="{{ route('admin.banner.update', $item->id) }}"
+                                                            <form action="{{ route('admin.service.update', $item->id) }}"
                                                                 method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="editBannerModalLabel{{ $item->id }}">Edit
-                                                                        Banner <span
+                                                                        id="editServiceModalLabel{{ $item->id }}">Edit
+                                                                        Service <span
                                                                             class="badge text-bg-success">{{ $item->order }}</span>
                                                                     </h5>
                                                                     <button type="button" class="btn-close"
@@ -91,12 +87,12 @@
 
                                                                 <div class="modal-body">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label">Banner Image</label>
+                                                                        <label class="form-label">Service Icon</label>
                                                                         <input name="image" class="form-control editImage"
                                                                             type="file">
 
-                                                                        @if ($item->image)
-                                                                            <img src="{{ asset('upload/banners/' . $item->image) }}"
+                                                                        @if ($item->icon)
+                                                                            <img src="{{ asset('upload/services/' . $item->icon) }}"
                                                                                 alt="banner image"
                                                                                 class="img-thumbnail mt-2 previewImage"
                                                                                 style="width: 100%; height: 300px;">
@@ -118,28 +114,14 @@
                                                                     </div>
 
                                                                     <div class="mb-3">
-                                                                        <label for="editTitle{{ $item->id }}"
-                                                                            class="form-label">Sub Title</label>
-                                                                        <input type="text" name="subtitle"
-                                                                            id="editTitle{{ $item->id }}"
-                                                                            class="form-control"
-                                                                            value="{{ old('subtitle', $item->subtitle) }}">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label for="editTitle{{ $item->id }}"
-                                                                            class="form-label">Button Text</label>
-                                                                        <input type="text" name="button_text"
-                                                                            id="editTitle{{ $item->id }}"
-                                                                            class="form-control"
-                                                                            value="{{ old('button_text', $item->button_text) }}">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label for="editTitle{{ $item->id }}"
-                                                                            class="form-label">Button Url</label>
-                                                                        <input type="text" name="button_url"
-                                                                            id="editTitle{{ $item->id }}"
-                                                                            class="form-control"
-                                                                            value="{{ old('button_url', $item->button_url) }}">
+                                                                        <label for="example-textarea{{ $item->id }}"
+                                                                            class="form-label">Description</label>
+                                                                        <textarea name="description" class="form-control @error('description') is-invalid @enderror"
+                                                                            id="example-textarea{{ $item->id }}" rows="5" spellcheck="false" placeholder="Description">{{ $item->description }}</textarea>
+                                                                        @error('description')
+                                                                            <span class="text-danger"
+                                                                                style="font-size: 14px;">{{ $message }}</span>
+                                                                        @enderror
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="editTitle{{ $item->id }}"
@@ -173,6 +155,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -186,7 +169,7 @@
             </div>
         </div> <!-- container-fluid -->
     </div>
-    <script>
+    {{-- <script>
         document.querySelectorAll('.editImage').forEach((input, index) => {
             input.addEventListener('change', function() {
                 const file = this.files[0];
@@ -196,7 +179,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 @endsection
 @push('scripts')
     @if (session('success'))

@@ -41,7 +41,7 @@ class BannerSectionController extends Controller
             'message'=>'Banner created successfully!',
             'alert-type'=>'success'
          );
-          return back()->with($notification);
+          return redirect()->route('admin.banner.index')->with($notification);
     }
 
 
@@ -89,6 +89,17 @@ class BannerSectionController extends Controller
             'alert-type' => 'warning'
         );
 
+        return redirect()->back()->with($notification);
+    }
+
+      public function toggleBannerSection($id){
+        $bannerSection = BannerSection::findOrFail($id);
+        $bannerSection->status = !$bannerSection->status;
+        $bannerSection->save();
+        $notification = array(
+            'message' => 'Status updated.',
+            'alert-type' => 'success'
+        );
         return redirect()->back()->with($notification);
     }
 

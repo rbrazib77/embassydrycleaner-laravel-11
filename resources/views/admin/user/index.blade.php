@@ -1,4 +1,5 @@
 @extends('admin.layouts.bashboard_master')
+@section('title', 'Admin User List')
 @section('admin')
     <div class="content">
 
@@ -43,7 +44,7 @@
                                             <td>
                                                 <img src="{{ !empty($item->photo) ? url('upload/user_images/' . $item->photo) : url('upload/no_image.jpg') }}"
                                                     alt="image profile"
-                                                    style="width:80px; height:40px; object-fit:cover; border-radius:3px;">
+                                                    style="width:80px; height:40px;  border-radius:3px;">
                                             </td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->email }}</td>
@@ -51,7 +52,7 @@
                                             <td>{{ $item->created_at }}</td>
                                             <td>
                                                 @if (auth()->id() == $item->id)
-                                                    <button class="btn btn-success btn-sm" disabled>Delete</button>
+                                                    <button class="btn btn-danger" disabled>Delete</button>
                                                 @else
                                                     <a href="{{ route('user.destroy', $item->id) }}"
                                                         class="btn btn-success btn-sm">Delete</a>

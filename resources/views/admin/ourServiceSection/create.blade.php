@@ -8,12 +8,12 @@
 
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="fs-18 fw-semibold m-0">New Banner Create</h4>
+                    <h4 class="fs-18 fw-semibold m-0">New Service Create</h4>
                 </div>
 
                 <div class="text-end">
                     <ol class="breadcrumb m-0 py-0">
-                        <a href="{{ route('admin.banner.index') }}" class="btn btn-success">Banner Item List</a>
+                        <a href="{{ route('admin.service.index') }}" class="btn btn-success">Service List</a>
                     </ol>
                 </div>
             </div>
@@ -24,13 +24,13 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form action="{{ route('admin.banner.store') }}" method="POST"
+                                    <form action="{{ route('admin.service.store') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="mb-3">
-                                            <label for="image" class="form-label">Banner Image</label>
-                                            <input name="image" class="form-control" type="file" id="image">
-                                            @error('image')
+                                            <label for="image" class="form-label">Service Icon</label>
+                                            <input name="icon" class="form-control" type="file" id="image">
+                                            @error('icon')
                                                 <span class="text-danger" style="font-size: 14px;">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -50,31 +50,10 @@
                                                 <span class="text-danger" style="font-size: 14px;">{{ $message }}</span>
                                             @enderror
                                         </div>
-
                                         <div class="mb-3">
-                                            <label for="example-email" class="form-label">Subtitle</label>
-                                            <input type="text" name="subtitle" id="example-email"
-                                                class="form-control @error('subtitle') is-invalid @enderror"
-                                                placeholder="Subtitle" value="{{ old('subtitle') }}">
-                                            @error('subtitle')
-                                                <span class="text-danger" style="font-size: 14px;">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="example-email" class="form-label">Button Text</label>
-                                            <input type="text" name="button_text" id="example-email"
-                                                class="form-control @error('button_text') is-invalid @enderror"
-                                                placeholder="Button Text" value="{{ old('button_text') }}">
-                                            @error('button_text')
-                                                <span class="text-danger" style="font-size: 14px;">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="example-email" class="form-label">Button Url</label>
-                                            <input type="text" name="button_url" id="example-email"
-                                                class="form-control @error('button_url') is-invalid @enderror"
-                                                placeholder="Button Url" value="{{ old('button_url') }}">
-                                            @error('button_url')
+                                            <label for="example-textarea" class="form-label">Description</label>
+                                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="example-textarea" rows="5" spellcheck="false" placeholder="Description">{{ old('description') }}</textarea>
+                                             @error('description')
                                                 <span class="text-danger" style="font-size: 14px;">{{ $message }}</span>
                                             @enderror
                                         </div>

@@ -1,4 +1,5 @@
 @extends('admin.layouts.bashboard_master')
+@section('title', 'Admin Dashboard')
 @section('admin')
     <div class="content">
         <!-- Start Content-->
