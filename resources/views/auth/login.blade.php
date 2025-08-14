@@ -34,9 +34,9 @@
                                 <div class="mb-4 p-0">
                                     <h3 style="font-weight: 800; color:#50b666 ;text-align: center; text-transform: uppercase"> Embassy <span>Dry</span> Cleaner
                                     </h3>
-                                    {{-- <a href="index.html" class="auth-logo">
+                                   {{-- <a href="index.html" class="auth-logo">
                                             <img src="{{asset('backend/assets/images/logo-dark.png')}}" alt="logo-dark" class="mx-auto" height="28" />
-                                        </a> --}}
+                                        </a>  --}}
                                 </div>
 
                                 <div class="pt-0">

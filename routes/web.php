@@ -2,19 +2,30 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Admin\{BannerSectionController,OurServiceSectionController,SettingController};
+use App\Http\Controllers\Admin\{BannerSectionController,OurServiceSectionController,SettingController,SocialMediaLinkController,HowItWorkSectionController,VisitorController,PassionateAboutLaundrySectionController,FaqSectionController};
 
 use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['web'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    // অন্য public route
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.index');
+    })->name('dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -27,10 +38,10 @@ require __DIR__.'/auth.php';
 
  Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
 
- Route::middleware('auth')->group(function () {
-    Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
-    Route::post('/admin/profile/store', [AdminController::class, 'ProfileStore'])->name('profile.store');
-    Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+    Route::post('/profile/store', [AdminController::class, 'ProfileStore'])->name('profile.store');
+    Route::post('/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
     Route::get('/user/list', [AdminController::class, 'UserList'])->name('admin.user.list');
     Route::get('/new/user', [AdminController::class, 'NewUser'])->name('new.user');
     Route::post('/new/user/create', [AdminController::class, 'NewUserCreate'])->name('new.user.create');
@@ -60,4 +71,47 @@ Route::prefix('admin/setting')->middleware(['auth'])->group(function () {
     Route::get('website/index', [SettingController::class, 'WebsiteIndex'])->name('admin.website.index');
     Route::post('website/update/{id}', [SettingController::class, 'WebsiteUpdate'])->name('admin.website.update');
 });
+Route::prefix('admin/social/media/link')->middleware(['auth'])->group(function () {
+    Route::get('index', [SocialMediaLinkController::class, 'SocialMediaLinkIndex'])->name('admin.social.media.link.index');
+    Route::get('create', [SocialMediaLinkController::class, 'SocialMediaLinkCreate'])->name('admin.social.media.link.create');
+    Route::post('store', [SocialMediaLinkController::class, 'SocialMediaLinkStore'])->name('admin.social.media.link.store');
+     Route::post('update/{id}', [SocialMediaLinkController::class, 'SocialMediaLinkUpdate'])->name('admin.social.media.link.update');
+    Route::get('destroy/{id}', [SocialMediaLinkController::class, 'SocialMediaLinkDelete'])->name('admin.social.media.link.destroy');
+    Route::get('active-deactive/{id}', [SocialMediaLinkController::class, 'toggleSocialMediaLink'])->name('admin.social.media.link.active.deactive');
+});
+
+Route::prefix('admin/how-it-works')->middleware(['auth'])->group(function () {
+    Route::get('index', [HowItWorkSectionController::class, 'HowItWorksIndex'])->name('admin.how.it.works.index');
+    Route::get('create', [HowItWorkSectionController::class, 'HowItWorksCreate'])->name('admin.how.it.works.create');
+    Route::post('store', [HowItWorkSectionController::class, 'HowItWorksStore'])->name('admin.how.it.works.store');
+    Route::get('destroy/{id}', [HowItWorkSectionController::class, 'HowItWorksDelete'])->name('admin.how.it.works.destroy');
+    Route::post('update/{id}', [HowItWorkSectionController::class, 'HowItWorksUpdate'])->name('admin.how.it.works.update');
+    Route::get('active-deactive/{id}', [HowItWorkSectionController::class, 'toggleHowItWorks'])->name('admin.how.it.works.active.deactive');
+});
+
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('/user-activity/list', [VisitorController::class, 'index'])->name('admin.user-activity.index');
+});
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('/passionate-about-laundry', [PassionateAboutLaundrySectionController::class, 'PassionateAboutLaundryCreate'])->name('admin.passionate.about.laundry.create');
+     Route::post('/passionate-about-laundry/update{id}', [PassionateAboutLaundrySectionController::class, 'PassionateAboutLaundryUpdate'])->name('admin.passionate.about.laundry.update');
+});
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('/faq-section', [FaqSectionController::class, 'FaqSectionIndex'])->name('admin.faq.section.index');
+    Route::post('/faq-section/update/{id}', [FaqSectionController::class, 'FaqSectionUpdate'])->name('admin.faq.section.update');
+});
+
+
+
+
+
+
+
+
+
+
+
 

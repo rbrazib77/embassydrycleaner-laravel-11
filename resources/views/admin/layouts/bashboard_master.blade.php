@@ -24,8 +24,11 @@
         rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/assets/libs/datatables.net-select-bs5/css/select.bootstrap5.min.css') }}"
         rel="stylesheet" type="text/css" />
-
-
+    {{ asset('backend') }}
+    <!-- Quill css -->
+    <link href="{{ asset('backend/assets/libs/quill/quill.core.js" rel="stylesheet" type="text/css') }}" />
+    <link href="{{ asset('backend/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css') }}" />
+    <link href="{{ asset('backend/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css') }}" />
     <!-- App css -->
     <link href="{{ asset('backend/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
 
@@ -103,14 +106,21 @@
 
     <!-- dataTable.responsive -->
     <script src=" {{ asset('backend/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src=" {{ asset('backend/assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+    <script src=" {{ asset('backend/assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}">
+    </script>
 
     <!-- Datatable Demo App Js -->
     <script src="{{ asset('backend/assets/js/pages/datatable.init.js') }}"></script>
 
+    <!-- Quill Editor Js -->
+    <script src="{{ asset('backend/assets/libs/quill/quill.core.js')}}"></script>
+    <script src="{{ asset('backend/assets/libs/quill/quill.min.js')}}"></script>
+    <!-- Quill Demo Js -->
+    <script src="{{ asset('backend/assets/js/pages/quilljs.init.js')}}"></script>
+    
     <!-- toastr js-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-        <!-- SweetAlert2 CDN -->
+    <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         @if (Session::has('message'))
@@ -135,7 +145,7 @@
         @endif
     </script>
 
- @stack('scripts')
+    @stack('scripts')
 
 </body>
 

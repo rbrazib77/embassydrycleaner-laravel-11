@@ -5,7 +5,7 @@
          <div id="sidebar-menu">
 
              <div class="logo-box">
-                 <a href="{{ route('dashboard') }}" class="logo logo-light">
+                 <a href="{{ route('admin.dashboard') }}" class="logo logo-light">
                      <span class="logo-sm">
                          <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="" height="22">
                      </span>
@@ -13,7 +13,7 @@
                          <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="" height="24">
                      </span>
                  </a>
-                 <a href="{{ route('dashboard') }}" class="logo logo-dark">
+                 <a href="{{ route('admin.dashboard') }}" class="logo logo-dark">
                      <span class="logo-sm">
                          <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="" height="22">
                      </span>
@@ -27,7 +27,7 @@
 
                  <li class="menu-title">Menu</li>
                  <li>
-                     <a href="{{ route('dashboard') }}" class="tp-link">
+                     <a href="{{ route('admin.dashboard') }}" class="tp-link">
                          <i data-feather="home"></i>
                          <span> Dashboard </span>
                      </a>
@@ -37,6 +37,13 @@
                      <a href="{{ route('admin.user.list') }}" class="tp-link">
                          <i data-feather="users"></i>
                          <span> User List </span>
+                     </a>
+                 </li>
+
+                   <li>
+                     <a href="{{route('admin.user-activity.index')}}" class="tp-link">
+                         <i data-feather="users"></i>
+                         <span>Website Visitor List</span>
                      </a>
                  </li>
 
@@ -55,13 +62,13 @@
                                  <a href="{{route('admin.service.index')}}" class="tp-link">Our Service Section</a>
                              </li>
                              <li>
-                                 <a href="auth-recoverpw.html" class="tp-link">Recover Password</a>
+                                 <a href="{{route('admin.how.it.works.index')}}" class="tp-link">How It Works Section</a>
                              </li>
                              <li>
-                                 <a href="auth-lock-screen.html" class="tp-link">Lock Screen</a>
+                                 <a href="{{route('admin.passionate.about.laundry.create')}}" class="tp-link">Passionate About</a>
                              </li>
                              <li>
-                                 <a href="auth-confirm-mail.html" class="tp-link">Confirm Mail</a>
+                                 <a href="{{route('admin.faq.section.index')}}" class="tp-link">Faq Section</a>
                              </li>
                              <li>
                                  <a href="email-verification.html" class="tp-link">Email Verification</a>
@@ -85,7 +92,7 @@
                                  <a href="{{route('admin.website.index')}}" class="tp-link">Website Setting</a>
                              </li>
                              <li>
-                                 <a href="extended-notifications.html" class="tp-link">Socile Media</a>
+                                 <a href="{{route('admin.social.media.link.index')}}" class="tp-link">Socile Media</a>
                              </li>
                              {{-- <li>
                                  <a href="extended-offcanvas.html" class="tp-link">Offcanvas</a>

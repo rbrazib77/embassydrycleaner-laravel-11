@@ -1,5 +1,8 @@
 @extends('admin.layouts.bashboard_master')
 @section('title', 'Admin Dashboard')
+@php
+    $totalVisits = App\Models\UserActivityLog::sum('visit_count');
+@endphp
 @section('admin')
     <div class="content">
         <!-- Start Content-->
@@ -8,6 +11,7 @@
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
                     <h4 class="fs-18 fw-semibold m-0">Dashboard</h4>
+                    {{-- {{ $totalVisits }} --}}
                 </div>
             </div>
 
@@ -21,9 +25,10 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div class="fs-14 mb-1">Website Traffic</div>
-                                    </div>
 
-                                    <div class="d-flex align-items-baseline mb-2">
+                                    </div>
+                                    {{ $totalVisits }}
+                                    {{-- <div class="d-flex align-items-baseline mb-2">
                                         <div class="fs-22 mb-0 me-2 fw-semibold text-black">91.6K</div>
                                         <div class="me-auto">
                                             <span class="text-primary d-inline-flex align-items-center">
@@ -32,8 +37,8 @@
                                                     style="height: 22px; width: 22px;"></i>
                                             </span>
                                         </div>
-                                    </div>
-                                    <div id="website-visitors" class="apex-charts"></div>
+                                    </div> --}}
+                                    {{-- <div id="website-visitors" class="apex-charts"></div> --}}
                                 </div>
                             </div>
                         </div>
