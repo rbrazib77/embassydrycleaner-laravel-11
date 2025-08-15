@@ -71,10 +71,10 @@
                                  <a href="{{route('admin.faq.section.index')}}" class="tp-link">Faq Section</a>
                              </li>
                              <li>
-                                 <a href="email-verification.html" class="tp-link">Email Verification</a>
+                                 <a href="{{route('admin.partnership.create')}}" class="tp-link">Partnership Page</a>
                              </li>
                              <li>
-                                 <a href="auth-logout.html" class="tp-link">Logout</a>
+                                 <a href="{{route('admin.career.create')}}" class="tp-link">Career Page</a>
                              </li>
                          </ul>
                      </div>

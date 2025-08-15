@@ -1,20 +1,14 @@
 @extends('admin.layouts.bashboard_master')
-@section('title', 'Our Service List')
+@section('title', 'Frequently asked questions')
 @section('admin')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <div class="content">
-
         <!-- Start Content-->
         <div class="container-xxl">
 
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="fs-18 fw-semibold m-0">Our Service List</h4>
-                </div>
-
-                <div class="text-end">
-                    <ol class="breadcrumb m-0 py-0">
-                        <a href="{{ route('admin.service.create') }}" class="btn btn-success">New Service Create</a>
-                    </ol>
+                    <h4 class="fs-18 fw-semibold m-0">Frequently asked questions section</h4>
                 </div>
             </div>
             <!-- Responsive Datatable -->
@@ -27,101 +21,81 @@
                                 <thead>
                                     <tr>
                                         <th>SI</th>
-                                        <th>Icon</th>
-                                        <th>Title</th>
-                                         <th>Description</th>
-                                        <th>status</th>
-                                        <th>Order</th>
-                                        <th>Date</th>
+                                        <th>Point Name</th>
                                         <th>Action</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($service as $key => $item)
+                                    @foreach ($points as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>
-                                                <img src="{{ !empty($item->icon) ? url('upload/services/' . $item->icon) : url('upload/no_image.jpg') }}"
-                                                    alt="icon service" style="width:80px; height:40px;  border-radius:3px;">
+                                                {{ $item }}
                                             </td>
-                                            <td>{{ $item->title }}</td>
-                                            <td>{{ Str::words($item->description, 6, '......') }}</td>
-                                            
-                                            <td>
+
+                                            {{-- <td>
                                                 <a href="javascript:void(0);"
                                                     class="toggle-status  {{ $item->status ? 'badge text-bg-primary' : 'badge text-bg-secondary' }}"
-                                                    data-url="{{ route('admin.service.active.deactive', $item->id) }}"
+                                                    data-url="{{ route('admin.faq.question.answer.active.deactive', $item->id) }}"
                                                     data-status="{{ $item->status ? 'deactivate' : 'activate' }}">
                                                     {{ $item->status ? 'Active' : 'Inactive' }}
                                                 </a>
-                                            </td>
-                                            <td>{{ $item->order }}</td>
-                                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                            </td> --}}
+
+                                            {{-- <td>{{ $item->created_at->format('d-m-Y') }}</td> --}}
                                             <td>
-                                                <a href="{{ route('admin.service.details', $item->id) }}"
+                                                <a href=""
                                                     class="btn btn-primary">View</a>
                                                 <a href="javascript:void(0);" class="btn btn-danger delete-btn"
-                                                    data-url="{{ route('admin.service.destroy', $item->id) }}">Delete</a>
-                                                <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                    data-bs-target="#editServiceModal{{ $item->id }}">
+                                                    data-url="">Delete</a>
+                                                {{-- <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                    data-bs-target="#editBannerModal{{ $item->id }}">
                                                     Edit
-                                                </button>
-
+                                                </button> --}}
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="editServiceModal{{ $item->id }}"
+                                                {{-- <div class="modal fade" id="editBannerModal{{ $item->id }}"
                                                     tabindex="-1"
-                                                    aria-labelledby="editServiceModalLabel{{ $item->id }}"
+                                                    aria-labelledby="editBannerModalLabel{{ $item->id }}"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog modal-xl">
                                                         <div class="modal-content">
-                                                            <form action="{{ route('admin.service.update', $item->id) }}"
-                                                                method="POST" enctype="multipart/form-data">
+                                                            <form
+                                                                action="{{ route('admin.faq.question.answer.update', $item->id) }}"
+                                                                method="POST">
                                                                 @csrf
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="editServiceModalLabel{{ $item->id }}">Edit
-                                                                        Service <span
+                                                                        id="editBannerModalLabel{{ $item->id }}">Edit
+                                                                        Question Answer <span
                                                                             class="badge text-bg-success">{{ $item->order }}</span>
                                                                     </h5>
                                                                     <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
                                                                 </div>
 
                                                                 <div class="modal-body">
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label">Service Icon</label>
-                                                                        <input name="image" class="form-control editImage"
-                                                                            type="file">
 
-                                                                        @if ($item->icon)
-                                                                            <img src="{{ asset('upload/services/' . $item->icon) }}"
-                                                                                alt="banner image"
-                                                                                class="img-thumbnail mt-2 previewImage"
-                                                                                style="width: 100%; height: 300px;">
-                                                                        @else
-                                                                            <img src="{{ url('upload/no_image.jpg') }}"
-                                                                                alt="no image"
-                                                                                class="img-thumbnail mt-2 previewImage"
-                                                                                style="width: 100%; height: 300px;">
-                                                                        @endif
+
+                                                                    <div class="mb-3">
+                                                                        <label for="simpleinput"
+                                                                            class="form-label">Question</label>
+                                                                        <input type="text" name="question"
+                                                                            id="simpleinput"
+                                                                            class="form-control @error('question') is-invalid @enderror"
+                                                                            placeholder="Question"
+                                                                            value="{{ $item->question }}">
+                                                                        @error('question')
+                                                                            <span class="text-danger"
+                                                                                style="font-size: 14px;">{{ $message }}</span>
+                                                                        @enderror
                                                                     </div>
-
                                                                     <div class="mb-3">
-                                                                        <label for="editTitle{{ $item->id }}"
-                                                                            class="form-label">Title</label>
-                                                                        <input type="text" name="title"
-                                                                            id="editTitle{{ $item->id }}"
-                                                                            class="form-control"
-                                                                            value="{{ old('title', $item->title) }}">
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <label for="example-textarea{{ $item->id }}"
-                                                                            class="form-label">Description</label>
-                                                                        <textarea name="description" class="form-control @error('description') is-invalid @enderror"
-                                                                            id="example-textarea{{ $item->id }}" rows="5" spellcheck="false" placeholder="Description">{{ $item->description }}</textarea>
-                                                                        @error('description')
+                                                                        <label for="example-textarea"
+                                                                            class="form-label">Answer</label>
+                                                                        <textarea name="answer" class="form-control @error('answer') is-invalid @enderror" id="example-textarea"
+                                                                            rows="5" spellcheck="false" placeholder="Answer">{{ $item->answer }}</textarea>
+                                                                        @error('answer')
                                                                             <span class="text-danger"
                                                                                 style="font-size: 14px;">{{ $message }}</span>
                                                                         @enderror
@@ -157,8 +131,7 @@
                                                             </form>
                                                         </div>
                                                     </div>
-                                                </div>
-
+                                                </div> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -172,18 +145,19 @@
             </div>
         </div> <!-- container-fluid -->
     </div>
-    {{-- <script>
-        document.querySelectorAll('.editImage').forEach((input, index) => {
-            input.addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const preview = this.closest('.mb-3').querySelector('.previewImage');
-                    preview.src = URL.createObjectURL(file);
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#image').change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#showImage').attr('src', e.target.result);
                 }
-            });
-        });
-    </script> --}}
+                reader.readAsDataURL(e.target.files['0']);
+            })
+        })
+    </script>
 @endsection
+
 @push('scripts')
     @if (session('success'))
         <script>

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Admin\{BannerSectionController,OurServiceSectionController,SettingController,SocialMediaLinkController,HowItWorkSectionController,VisitorController,PassionateAboutLaundrySectionController,FaqSectionController};
+use App\Http\Controllers\Admin\{BannerSectionController,OurServiceSectionController,SettingController,SocialMediaLinkController,HowItWorkSectionController,VisitorController,PassionateAboutLaundrySectionController,FaqSectionController,PartnershipController,CareerController};
 
 use Illuminate\Support\Facades\Route;
 
@@ -102,7 +102,24 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/faq-section', [FaqSectionController::class, 'FaqSectionIndex'])->name('admin.faq.section.index');
     Route::post('/faq-section/update/{id}', [FaqSectionController::class, 'FaqSectionUpdate'])->name('admin.faq.section.update');
+    Route::post('/faq/question/answer/store', [FaqSectionController::class, 'FaqQuestionAnswerStore'])->name('admin.faq.question.answer.store');
+    Route::post('/faq/question/answer/update/{id}', [FaqSectionController::class, 'FaqQuestionAnswerUpdate'])->name('admin.faq.question.answer.update');
+    Route::get('/faq/question/answer/view/{id}', [FaqSectionController::class, 'FaqQuestionAnswerView'])->name('admin.faq.question.answer.view');
+    Route::get('/faq/question/answer/destroy/{id}', [FaqSectionController::class, 'FaqQuestionAnswerDestroy'])->name('admin.faq.question.answer.destroy');
+    Route::get('/faq/active-deactive/{id}', [FaqSectionController::class, 'toggleFaqQuestionAnswer'])->name('admin.faq.question.answer.active.deactive');
+
 });
+
+Route::prefix('admin/partnership')->middleware(['auth'])->group(function () {
+    Route::get('/create', [PartnershipController::class, 'PartnershipCreate'])->name('admin.partnership.create');
+    Route::post('/store', [PartnershipController::class, 'PartnershipStore'])->name('admin.partnership.store');
+});
+
+Route::prefix('admin/career')->middleware(['auth'])->group(function () {
+    Route::get('/create', [CareerController::class, 'CareerCreate'])->name('admin.career.create');
+    Route::post('/update/{id}', [CareerController::class, 'CareerUpdate'])->name('admin.career.update');
+});
+
 
 
 

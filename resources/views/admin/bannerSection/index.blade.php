@@ -31,7 +31,7 @@
                                         <th>Title</th>
                                         <th>SubTitle</th>
                                         <th>Button Text</th>
-                                        {{-- <th>Button Url</th> --}}
+                                        <th>Button Url</th>
                                         <th>status</th>
                                         <th>Order</th>
                                         <th>Date</th>
@@ -46,12 +46,14 @@
                                             <td>
                                                 <img src="{{ !empty($item->image) ? url('upload/banners/' . $item->image) : url('upload/no_image.jpg') }}"
                                                     alt="image profile"
-                                                    style="width:80px; height:40px; object-fit:cover; border-radius:3px;">
+                                                    style="width:60px; height:30px; object-fit:cover; border-radius:3px;">
                                             </td>
                                             <td>{{ $item->title }}</td>
-                                            <td>{{ $item->subtitle }}</td>
+                                            <td>
+                                                {{ Str::words($item->subtitle, 2, '......') }}
+                                            </td>
                                             <td>{{ $item->button_text }}</td>
-                                            {{-- <td>{{ $item->button_url }}</td> --}}
+                                            <td>{{ $item->button_url }}</td>
                                             <td>
                                                 <a href="javascript:void(0);"
                                                     class="toggle-status  {{ $item->status ? 'badge text-bg-primary' : 'badge text-bg-secondary' }}"
